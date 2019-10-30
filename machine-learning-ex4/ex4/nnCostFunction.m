@@ -114,6 +114,10 @@ for i=1:m
     Theta1_grad = Theta1_grad + d_2' * a_1_w_bias; % 25 x 401
 endfor
 
+% Add regularization on gradient:
+Theta1_grad = Theta1_grad + (lambda / m) * [zeros(size(Theta1, 1), 1), Theta1(:, 2:end)];
+Theta2_grad = Theta2_grad + (lambda / m) * [zeros(size(Theta2, 1), 1), Theta2(:, 2:end)];
+
 % =========================================================================
 
 % Unroll gradients
