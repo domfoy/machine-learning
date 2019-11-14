@@ -16,6 +16,7 @@ function [error_train, error_val] = ...
 
 % Number of training examples
 m = size(X, 1);
+mval = size(Xval, 1);
 
 % You need to return these values correctly
 error_train = zeros(m, 1);
@@ -52,11 +53,18 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
-[theta_wo_bias] = trainLinearReg([ones(m, 1) X], y, 0);
-theta = [1; theta_wo_bias];
 
-error_train = sum(([ones(m, 1) X] * theta - y) .^ 2) / (2*m);
 
+for i = 1:m
+  Xi = X(1:i, :);
+  yi = y(1:i);
+  
+  [thetai] = trainLinearReg(Xi, yi, 0);
+
+  error_train(i) = sum((Xi * thetai - yi) .^ 2) / (2*i);
+  
+  error_val(i) = sum((Xval * thetai - yval) .^ 2) / (2*mval);
+endfor
 % -------------------------------------------------------------
 
 % =========================================================================
