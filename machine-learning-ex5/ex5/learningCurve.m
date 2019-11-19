@@ -59,7 +59,7 @@ for i = 1:m
   Xi = X(1:i, :);
   yi = y(1:i);
   
-  [thetai] = trainLinearReg(Xi, yi, 0);
+  [thetai] = trainLinearReg(Xi, yi, 1);
 
   error_train(i) = sum((Xi * thetai - yi) .^ 2) / (2*i);
   
